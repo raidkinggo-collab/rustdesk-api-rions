@@ -13,7 +13,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter')}}</el-button>
+          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
           <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
         </el-form-item>
       </el-form>
@@ -32,11 +32,11 @@
         <el-table-column prop="uuid" label="uuid" align="center"/>
         <el-table-column prop="ip" label="ip" align="center" width="150"/>
         <el-table-column prop="type" label="type" align="center" width="100"/>
-        <el-table-column prop="platform" label="platform" align="center" width="120" show-overflow-tooltip/>
+        <el-table-column prop="platform" label="Platform/UA" align="center" width="120" show-overflow-tooltip/>
         <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
         <el-table-column :label="T('Actions')" align="center" width="400">
           <template #default="{row}">
-            <el-button type="danger" @click="del(row)">{{T('Delete')}}</el-button>
+            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -69,7 +69,7 @@
     handlerQuery,
     del,
     batchdel,
-  } = useRepositories()
+  } = useRepositories('admin')
 
   onMounted(getList)
   onActivated(getList)
