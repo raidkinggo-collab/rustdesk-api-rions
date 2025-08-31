@@ -16,7 +16,7 @@ export const toWebClientLink = (row) => {
 }
 
 export async function getPeerSlat (id) {
-  const [addr, port] = app.setting.rustdeskConfig.value.id_server.split(':')
+  const [addr, port] = app.setting.rustdeskConfig.id_server.split(':')
   if (!addr) {
     return
   }
@@ -69,7 +69,7 @@ export async function getPeerSlat (id) {
     await _ws.open()
     console.log(new Date() + ': Connected to relay server')
     const request_relay = rendezvous.RequestRelay.fromPartial({
-      licence_key: app.setting.rustdeskConfig.value.key || undefined,
+      licence_key: app.setting.rustdeskConfig.key || undefined,
       uuid,
     })
     _ws.sendRendezvous({ request_relay })
@@ -94,5 +94,5 @@ export async function getPeerSlat (id) {
 }
 
 export function getV2ShareUrl (token) {
-  return `${app.setting.rustdeskConfig.value.api_server}/webclient2/#/?share_token=${token}`
+  return `${app.setting.rustdeskConfig.api_server}/webclient2/#/?share_token=${token}`
 }

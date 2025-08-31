@@ -49,13 +49,11 @@
                   <br>
                   <span>{{ T('You can reference export file') }}</span>
                 </div>
-
               </template>
-
             </el-upload>
             <el-button @click="showImport=false" type="primary">{{ T('Cancel') }}</el-button>
             <template #reference>
-              <el-button @click="showImport=true" type="danger">{{ T('Import') }}</el-button>
+              <el-button @click="showImport=true" type="danger" :icon="ArrowDown">{{ T('Import') }}</el-button>
             </template>
           </el-popover>
           <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
@@ -64,36 +62,44 @@
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
+      <div style="text-align: right; margin-bottom: 10px">
+        <el-button :icon="Setting" @click="showColumnSetting"></el-button>
+      </div>
+
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column prop="id" label="ID" align="center" width="150">
-          <template #default="{row}">
-            <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="cpu" label="CPU" align="center" width="100" show-overflow-tooltip/>
-        <el-table-column prop="hostname" :label="T('Hostname')" align="center" width="120"/>
-        <el-table-column prop="memory" :label="T('Memory')" align="center" width="120"/>
-        <el-table-column prop="os" :label="T('Os')" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column prop="last_online_time" :label="T('LastOnlineTime')" align="center" min-width="120">
-          <template #default="{row}">
-            <div class="last_oline_time">
-              <span> {{ row.last_online_time ? timeAgo(row.last_online_time * 1000) : '-' }}</span> <span class="dot" :class="{red: timeDis(row.last_online_time) >= 60, green: timeDis(row.last_online_time)< 60}"></span>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="120"/>
-        <el-table-column prop="username" :label="T('Username')" align="center" width="120"/>
-        <el-table-column prop="group_id" :label="T('Group')" align="center" width="120">
-          <template #default="{row}">
-            <span v-if="row.group_id"> <el-tag>{{ groupListRes.list?.find(g => g.id === row.group_id)?.name }} </el-tag> </span>
-            <span v-else> - </span>
-          </template>
-        </el-table-column>
-        <el-table-column prop="uuid" :label="T('Uuid')" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column prop="version" :label="T('Version')" align="center" width="80"/>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center" width="150"/>
-        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center" width="150"/>
+        <template v-for="c in visibleColumns.filter(cc => cc.visible)" :key="c">
+          <el-table-column v-if="c.name==='id'" prop="id" label="ID" align="center" width="150">
+            <template #default="{row}">
+              <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="c.name==='cpu'" prop="cpu" label="CPU" align="center" width="100" show-overflow-tooltip/>
+          <el-table-column v-if="c.name==='hostname'" prop="hostname" :label="T('Hostname')" align="center" width="120"/>
+          <el-table-column v-if="c.name==='memory'" prop="memory" :label="T('Memory')" align="center" width="120"/>
+          <el-table-column v-if="c.name==='os'" prop="os" :label="T('Os')" align="center" width="120" show-overflow-tooltip/>
+          <el-table-column v-if="c.name==='last_online_time'" prop="last_online_time" :label="T('LastOnlineTime')" align="center" min-width="120">
+            <template #default="{row}">
+              <div class="last_oline_time">
+                <span> {{ row.last_online_time ? timeAgo(row.last_online_time * 1000) : '-' }}</span> <span class="dot" :class="{red: timeDis(row.last_online_time) >= 60, green: timeDis(row.last_online_time)< 60}"></span>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="c.name==='last_online_ip'" prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="120"/>
+          <el-table-column v-if="c.name==='username'" prop="username" :label="T('Username')" align="center" width="120"/>
+          <el-table-column v-if="c.name==='group_id'" prop="group_id" :label="T('Group')" align="center" width="120">
+            <template #default="{row}">
+              <span v-if="row.group_id"> <el-tag>{{ groupListRes.list?.find(g => g.id === row.group_id)?.name }} </el-tag> </span>
+              <span v-else> - </span>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="c.name==='uuid'" prop="uuid" :label="T('Uuid')" align="center" width="120" show-overflow-tooltip/>
+          <el-table-column v-if="c.name==='version'" prop="version" :label="T('Version')" align="center" width="80"/>
+          <el-table-column v-if="c.name==='alias'" prop="alias" :label="T('Alias')" align="center" width="80"/>
+          <el-table-column v-if="c.name==='created_at'" prop="created_at" :label="T('CreatedAt')" align="center" width="150"/>
+          <el-table-column v-if="c.name==='updated_at'" prop="updated_at" :label="T('UpdatedAt')" align="center" width="150"/>
+        </template>
+
         <el-table-column :label="T('Actions')" align="center" width="500" class-name="table-actions" fixed="right">
           <template #default="{row}">
             <el-button type="success" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
@@ -150,7 +156,9 @@
         <el-form-item :label="T('Version')" prop="version">
           <el-input v-model="formData.version"></el-input>
         </el-form-item>
-
+        <el-form-item :label="T('Alias')" prop="alias">
+          <el-input v-model="formData.alias"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
           <el-button @click="submit" type="primary">{{ T('Submit') }}</el-button>
@@ -196,6 +204,28 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
+    <el-dialog v-model="columnSettingVisible" title="Column Setting">
+      <div v-for="(row, key) in visibleColumns" :key="key" style="margin-bottom: 10px;display: flex;align-items: center">
+        <div style="width: 200px">
+          <el-checkbox v-model="row.visible" :label="true">{{ T(row.label) }}</el-checkbox>
+        </div>
+        <div @click="upColumn(key)" style="width: 100px;cursor: pointer">
+          <el-icon :size="20">
+            <ArrowUp/>
+          </el-icon>
+        </div>
+        <div @click="downColumn(key)" style="width: 100px;cursor: pointer">
+          <el-icon :size="20">
+            <ArrowDown/>
+          </el-icon>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="columnSettingVisible = false">{{ T('Cancel') }}</el-button>
+        <el-button type="primary" @click="saveColumnSetting">{{ T('Save') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -211,7 +241,7 @@
   import { loadAllUsers } from '@/global'
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
-  import { CopyDocument } from '@element-plus/icons'
+  import { ArrowDown, ArrowUp, CopyDocument, Setting } from '@element-plus/icons'
   import { handleClipboard } from '@/utils/clipboard'
   import { batchCreateFromPeers } from '@/api/address_book'
   import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
@@ -495,6 +525,47 @@
   }
   // 批量添加到地址簿 end
 
+  const columnSettingVisible = ref(false)
+  const allColumns = ref([
+    { name: 'id', visible: true, label: 'Id' },
+    { name: 'cpu', visible: true, label: 'Cpu' },
+    { name: 'hostname', visible: true, label: 'Hostname' },
+    { name: 'memory', visible: true, label: 'Memory' },
+    { name: 'os', visible: true, label: 'Os' },
+    { name: 'last_online_time', visible: true, label: 'LastOnlineTime' },
+    { name: 'last_online_ip', visible: true, label: 'LastOnlineIp' },
+    { name: 'username', visible: true, label: 'Username' },
+    { name: 'group_id', visible: true, label: 'Group' },
+    { name: 'uuid', visible: true, label: 'Uuid' },
+    { name: 'version', visible: true, label: 'Version' },
+    { name: 'alias', visible: true, label: 'Alias' },
+    { name: 'created_at', visible: true, label: 'CreatedAt' },
+    { name: 'updated_at', visible: true, label: 'UpdatedAt' },
+  ])
+  const visibleColumns = ref(JSON.parse(localStorage.getItem('peer_visible_columns')) || allColumns.value)
+  const showColumnSetting = () => {
+    columnSettingVisible.value = true
+  }
+  const saveColumnSetting = () => {
+    localStorage.setItem('peer_visible_columns', JSON.stringify(visibleColumns.value))
+    ElMessage.success(T('OperationSuccess'))
+    columnSettingVisible.value = false
+  }
+
+  const upColumn = (index) => {
+    if (index === 0) return
+    const col = visibleColumns.value[index]
+    visibleColumns.value.splice(index, 1)
+    visibleColumns.value.splice(index - 1, 0, col)
+
+  }
+  const downColumn = (index) => {
+    if (index === visibleColumns.value.length - 1) return
+    const col = visibleColumns.value[index]
+    visibleColumns.value.splice(index, 1)
+    visibleColumns.value.splice(index + 1, 0, col)
+
+  }
 </script>
 
 <style scoped lang="scss">
