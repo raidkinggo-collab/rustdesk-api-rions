@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="User accounts"
+      description="People who can sign in to the portal and clients."
+      help="Add, edit or disable the accounts that can log in to RionsDesk. Use the admin toggle to grant full access, assign users to a group to scope what they can see, and reset passwords here. Disabled users keep their data but can no longer sign in."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <el-form-item :label="T('Username')">
@@ -62,6 +67,7 @@
 <script setup>
   import { useRepositories, useDel, useToEditOrAdd, useChangePwd } from '@/views/user/composables'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { DISABLE_STATUS, ENABLE_STATUS } from '@/utils/common_options'
   import { update } from '@/api/user'
   import { ElMessageBox, ElMessage } from 'element-plus'

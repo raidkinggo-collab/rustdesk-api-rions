@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Tags"
+      description="Labels for organising address book entries."
+      help="Tags colour-code and filter devices in the address book. Create a tag, assign it an owner, then apply it to entries so technicians can quickly filter the devices they manage."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="120px">
         <el-form-item :label="T('Owner')">
@@ -111,6 +116,7 @@
   import { onMounted, reactive, watch, ref, onActivated } from 'vue'
   import { useRepositories } from '@/views/tag/index'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { loadAllUsers } from '@/global'
 
   const { allUsers, getAllUsers } = loadAllUsers()

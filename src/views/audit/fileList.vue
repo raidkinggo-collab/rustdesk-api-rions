@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="File transfer logs"
+      description="History of files sent and received."
+      help="A record of file transfers made during remote sessions, including the peer, direction and file details. Use it to audit what was transferred and when. Entries are read-only."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <el-form-item :label="T('Peer')">
@@ -99,6 +104,7 @@
   import { onActivated, onMounted, ref, watch } from 'vue'
   import { useFileRepositories } from '@/views/audit/reponsitories'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { sizeFormat } from '@/utils/file'
   import { Right } from '@element-plus/icons'
 

@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="SSO providers"
+      description="Single sign-on and OAuth login options."
+      help="Configure external identity providers (Google, GitHub, generic OIDC) so users can sign in without a local password. Add a provider with its client ID and secret; enabled providers appear as buttons on the login page."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <el-form-item>
@@ -105,6 +110,7 @@
   import { list, create, update, detail, remove } from '@/api/oauth'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { handleClipboard } from '@/utils/clipboard'
   import { useAppStore } from '@/store/app'
   import { CopyDocument } from '@element-plus/icons'

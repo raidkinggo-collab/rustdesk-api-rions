@@ -1,13 +1,25 @@
 $basicBlack: #000000;
 $basicWhite: #ffffff;
 
-$primaryColor: #409eff;
+// RIONS brand blue
+$primaryColor: #1C6FB5;
+$sidebarBg: #16314a;
 
 :root {
   --basicBlack: #000000;
   --basicWhite: #ffffff;
-  --primaryColor: #409eff;
+  --primaryColor: #1C6FB5;
+  --rions-sidebar-bg: #16314a;
   --tag-bg-color: #efefef;
+
+  // Element Plus primary color -> RIONS blue
+  --el-color-primary: #1C6FB5;
+  --el-color-primary-light-3: #609ECB;
+  --el-color-primary-light-5: #8EB7DA;
+  --el-color-primary-light-7: #BBD4E9;
+  --el-color-primary-light-8: #D2E2F0;
+  --el-color-primary-light-9: #E8F1F8;
+  --el-color-primary-dark-2: #165991;
 }
 
 body {
@@ -16,7 +28,18 @@ body {
 }
 
 .list-body {
-  margin: 10px 0;
+  margin: 12px 0;
+}
+
+// Modern light touch: consistent rounded cards + subtle shadow
+.el-card {
+  border-radius: 10px;
+}
+
+.list-query,
+.list-body,
+.list-page {
+  border-radius: 10px;
 }
 
 .dialog-form {
