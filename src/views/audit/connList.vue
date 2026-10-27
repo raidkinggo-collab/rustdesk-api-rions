@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Connection logs"
+      description="History of remote-control sessions."
+      help="A record of every remote connection handled by the server: who connected, to which device, and when. Use the filters to audit activity by device or time. Entries are read-only."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <el-form-item :label="T('Peer')">
@@ -55,6 +60,7 @@
   import { onActivated, onMounted, ref, watch } from 'vue'
   import { useRepositories } from '@/views/audit/reponsitories'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
 
   const {
     listRes,

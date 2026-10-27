@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Device groups"
+      description="Folders for organising registered machines."
+      help="Device groups categorise the hosts registered with the server, for example by site or customer. Create a group here, then assign devices to it from the Devices screen to keep large fleets manageable."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <!--        <el-form-item label="名称">
@@ -53,6 +58,7 @@
   import { list, create, update, detail, remove } from '@/api/device_group'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
 
   const listRes = reactive({
     list: [], total: 0, loading: false,

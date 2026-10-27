@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Login log"
+      description="Record of sign-in activity."
+      help="Every sign-in to the portal and clients, with the user, device, IP and time. Use it to spot unexpected logins. Entries are read-only and can be exported."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <el-form-item :label="T('User')">
@@ -63,6 +68,7 @@
   import { loadAllUsers } from '@/global'
   import { useRepositories } from '@/views/login/log.js'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { list } from '@/api/peer'
   import { downBlob, jsonToCsv } from '@/utils/file'
 

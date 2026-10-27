@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Share records"
+      description="Links shared for device access."
+      help="Shows address book entries that users have shared via link, including who shared them and when. Revoke a share by deleting its record to stop further access."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <el-form-item :label="T('User')">
@@ -57,6 +62,7 @@
   import { onActivated, onMounted, ref, watch, reactive } from 'vue'
   import { loadAllUsers } from '@/global'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { remove, list, batchDelete } from '@/api/share_record'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { useRepositories } from '@/views/share_record/index'

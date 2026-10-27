@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="My account"
+      description="Your personal profile and security settings."
+      help="View your account details, change your password, and manage linked single sign-on providers. Changes here affect only your own account."
+    />
     <el-card :title="T('Userinfo')" shadow="hover">
       <el-form class="info-form" ref="form" label-width="120px" label-suffix="：">
         <el-form-item :label="T('Username')">
@@ -46,6 +51,7 @@
   import { myOauth } from '@/api/user'
   import { ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { marked } from 'marked'
 
   const appStore = useAppStore()

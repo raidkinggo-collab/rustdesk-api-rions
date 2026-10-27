@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Groups"
+      description="Organise users into teams."
+      help="Groups bundle users so their devices and address books can be shared within a team. Create a group here, then assign users to it from the User accounts screen. Deleting a group does not delete its users."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <!--        <el-form-item label="名称">
@@ -67,6 +72,7 @@
   import { list, create, update, detail, remove } from '@/api/group'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
 
   const listRes = reactive({
     list: [], total: 0, loading: false,

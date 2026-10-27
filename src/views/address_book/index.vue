@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Address book"
+      description="Saved devices your technicians connect to."
+      help="Address book entries are the machines saved for quick access in the client. Entries can be personal to a user or shared across a team, and can be organised with tags. They appear in the user's RionsDesk client address book."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="120px">
         <el-form-item :label="T('Owner')">
@@ -182,6 +187,7 @@
   import { useRepositories } from '@/views/address_book/index'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { useRoute } from 'vue-router'
   import { connectByClient } from '@/utils/peer'
   import { useAppStore } from '@/store/app'

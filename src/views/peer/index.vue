@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PageHelp
+      title="Devices"
+      description="All machines registered with the server."
+      help="These are the RionsDesk hosts connected to this server. You can rename them, assign them to device groups, and see their online status and last connection. Use the filters to find a device by ID, name or group."
+    />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="60px">
         <el-form-item label="ID">
@@ -236,6 +241,7 @@
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
+  import PageHelp from '@/components/PageHelp.vue'
   import { timeAgo } from '@/utils/time'
   import { jsonToCsv, downBlob } from '@/utils/file'
   import { loadAllUsers } from '@/global'
