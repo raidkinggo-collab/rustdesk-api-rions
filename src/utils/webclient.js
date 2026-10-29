@@ -9,10 +9,12 @@ import { useAppStore } from '@/store/app'
 
 const app = useAppStore()
 
+// Standalone RustDesk web client (rophy/rustdesk-webclient). Upstream removed the
+// /webclient2 route from rustdesk-api, so the web client now runs as its own container.
+const WEBCLIENT_BASE = 'http://rd.rions.nl:21120'
+
 export const toWebClientLink = (row) => {
-  //v2
-  console.log(app.setting.rustdeskConfig)
-  window.open(`${app.setting.rustdeskConfig.api_server}/webclient2/#/${row.id}`)
+  window.open(`${WEBCLIENT_BASE}/#/${row.id}`)
 }
 
 export async function getPeerSlat (id) {
@@ -94,5 +96,5 @@ export async function getPeerSlat (id) {
 }
 
 export function getV2ShareUrl (token) {
-  return `${app.setting.rustdeskConfig.api_server}/webclient2/#/?share_token=${token}`
+  return `${WEBCLIENT_BASE}/#/?share_token=${token}`
 }
