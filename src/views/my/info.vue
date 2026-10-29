@@ -92,7 +92,8 @@
 
   }
 
-  const html = computed(_ => marked(appStore.setting.hello||''))
+  // RionsDesk-branded greeting instead of the backend's default (Chinese) hello text.
+  const html = computed(_ => marked(`👋 Hallo **${userStore.username}**, welkom bij RionsDesk Beheer.`))
 
 </script>
 
